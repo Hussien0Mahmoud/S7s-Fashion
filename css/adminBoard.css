@@ -1,0 +1,36 @@
+
+.users-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.users-container table {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.users-container th, .users-container td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.users-container th {
+    background-color: #f2f2f2;
+    font-weight: 700;
+    color: rgb(6, 6, 53);
+}
+.users-container td {
+    font-size: 20px;
+    color: rgba(0, 0, 255, 0.724);
+}
+
+.users-container td button {
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

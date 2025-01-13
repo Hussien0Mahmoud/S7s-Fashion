@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/signUp.css">
+    <title>S7S Fashon / registration</title>
+</head>
+<body>
+
+    <nav>
+        <a href="#">S7S Fashon</a>
+  
+        <ul class="menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../html/cart.html">Cart</a></li>
+          <li><a href="../html/login.html">Login</a></li>
+          <li id="signUp"><a href="signUp.html">Sign Up</a></li> 
+        </ul>
+      </nav>
+
+      <!-- Start of Form -->
+      <div class="form-Container">
+        <form action="" id="form">
+          <div>
+            <label for="name">Your Name: </label> <br>
+            <input type="text" id="name">
+            <span class="error" id="nameError"></span>
+          </div>
+          <div>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email">
+            <span class="error" id="emailError"></span>
+          </div>
+          <div>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password">
+            <span class="error" id="passwordError"></span>
+          </div>
+          <div>
+            <label for="confpassword">Confirm Password:</label><br>
+            <input type="password" id="confpassword">
+            <span class="error" id="confpasswordError"></span>
+          </div>
+          <div>
+            <input type="submit" value="Submit Now">
+          </div>
+        </form>
+       </div>
+      <!-- End of Form -->
+    
+
+    <script src="../scripts/formValidation.js"></script>
+</body>
+</html>

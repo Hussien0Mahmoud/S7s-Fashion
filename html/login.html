@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/login.css">
+    <title>S7S Fashon / Login</title>
+</head>
+<body>
+
+    <nav>
+        <a href="#">S7S Fashon</a>
+  
+        <ul class="menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../html/cart.html">Cart</a></li>
+          <li><a href="login.html" class="active">Login</a></li>
+          <li id="signUp"><a href="../html/signUp.html">Sign Up</a></li> 
+        </ul>
+      </nav>
+
+      <!-- Start of Form -->
+       <div class="form-Container">
+        <form  id="form">
+          <!-- <div>
+            <label for="name">Your Name: </label> <br>
+            <input type="text" id="name">
+          </div> -->
+          <div>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" >
+            <span class="error" id="emailError"></span>
+          </div>
+          <div>
+            <label for="password">Password:</label><br>
+            <input type="password"  id="password">
+            <span class="error" id="passwordError"></span>
+          </div>
+          <!-- <div>
+            <label for="confpassword">Confirm Password:</label><br>
+            <input type="text" name="confpassword">
+          </div> -->
+          <div>
+            <input type="submit"  value="Submit Now">
+          </div>
+        </form>
+       </div>
+      <!-- End of Form -->
+    
+      <script src="../scripts/login.js"></script>
+</body>
+</html>
