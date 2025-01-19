@@ -1,4 +1,19 @@
 
+let currentUserString = localStorage.getItem("currentUser");
+const currentUser = JSON.parse(currentUserString);
+
+function checkAuthority(allowedRoles) {
+  if (currentUserString) {
+    return allowedRoles.includes(currentUser.userrole);
+  }
+  return false; 
+}
+// console.log(currentUserString)
+
+if(!checkAuthority(["seller"])){
+  window.location.href = "../index.html";
+}
+
 let productTitle = document.querySelector("#productTitle");
 let productDescription = document.querySelector("#productDescription");
 let productPrice = document.querySelector("#productPrice");
@@ -29,11 +44,12 @@ submitProduct.addEventListener("click", (e) => {
 
     if (isValid) {
       const product = {
+        sellerid:currentUser.id,
         title: productTitle.value,
         description: productDescription.value,
         price: productPrice.value,
         image: productImage.value,
-        status:"approved"
+        status:"pending"
       };
       addProduct(product);
     }
@@ -51,7 +67,7 @@ submitProduct.addEventListener("click", (e) => {
 
 // get products ya s7s
 async function fetchProducts() {
-  const response = await fetch("http://localhost:3000/products");
+  const response = await fetch(`http://localhost:3000/products?sellerid=${currentUser.id}`);
   const products = await response.json();
   return products;
 }
@@ -66,8 +82,6 @@ fetchProducts().then((products) => {
                     <td>${product.description}</td>
                     <td>${product.price}</td>
                     <td><img src="${product.image}"/></td>
-                    <td>${product.status}</td>
-                    
                     <td>
                         <button id="delBtn" data-id="${product.id}">delet</button>
                         <button id="upBtn"  data-id="${product.id}">update</button>
@@ -95,7 +109,6 @@ async function updateProducts(id) {
   let updateProductDescription = document.querySelector("#updateProductDescription");
   let updateProductPrice = document.querySelector("#updateProductPrice");
   let updateProductImage = document.querySelector("#updateProductImage");
-  let updateProductStatus = document.querySelector("#updateProductStatus");
   
   let product = await fetchProduct(id)
   updateProductTitle.value=product.title
@@ -103,7 +116,6 @@ async function updateProducts(id) {
   updateProductPrice.value=product.price
   updateProductImage.value=product.image
 
- 
 
   updateForm.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -117,8 +129,7 @@ async function updateProducts(id) {
     title: updateProductTitle.value,
     description: updateProductDescription.value,
     price: updateProductPrice.value,
-    image: updateProductImage.value,
-    status:updateProductStatus.value
+    image: updateProductImage.value
   };
 updateProduct(product,id)
     popupForm.style.display = "none";
@@ -130,7 +141,7 @@ targetTable.addEventListener("click", async (event) => {
     
     if (event.target && event.target.id === "delBtn") {
       const productId = event.target.getAttribute("data-id"); 
-      const rowTarget = event.target.closest("tr"); 
+      const row = event.target.closest("tr"); 
 
       const confirmDelete = confirm("Are you sure you want to delete this product?");
       if (!confirmDelete) return;
@@ -139,7 +150,7 @@ targetTable.addEventListener("click", async (event) => {
           method: "DELETE",
         });
 
-          rowTarget.remove();
+          row.remove();
           console.log(`Product with ID ${productId} deleted successfully.`);
 
     }

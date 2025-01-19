@@ -11,7 +11,7 @@
  let confpassworderror = document.getElementById("confpasswordError");
 
 
- form.addEventListener("submit", function(event) {
+ form.addEventListener("submit", async function(event) {
    event.preventDefault(); 
 
    nameerror.textContent = "";
@@ -51,6 +51,15 @@
      isValid = false;
    }
 
+   const response = await fetch("http://localhost:3000/users");
+    const users = await response.json();
+    const userExists = users.find((user) => user.email === email.value.trim());
+
+    if (userExists) {
+      emailerror.textContent = "Email already exists.";
+      isValid = false;
+    }
+
 
    const addUser = async (body) => {
     const res = await fetch("http://localhost:3000/users", {
@@ -58,6 +67,8 @@
         body: JSON.stringify(body)
     })
   }
+
+ 
  
    if (isValid) {
    const user = {
@@ -69,6 +80,5 @@
 addUser(user);
 form.reset();
    }
-   
    
  });

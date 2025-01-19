@@ -24,41 +24,44 @@
                 <h1> Manage Customers </h1>
             </div>
             <div class="input-group">  
-                <input type="text"  placeholder="Customer ID" id="customerId">
                 <input type="text"  placeholder="Customer Name" id="customerName">
                 <input type="email" placeholder="Customer Mail" id="customerMail">
+                <input type="password"  placeholder="Customer PassWord" id="customerPass">
+                <input type="text" placeholder="Customer Role" id="customerRole">
                 <span id="error"></span>
                 <input type="submit" value="Add Customer" id="submitCustomer">
             </div>
         <table>
-            <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Password</th>
+                    <th>Role</th>
                     <th>Actions</th>
                 </tr>
-            </thead>
-            <tbody id="customerTable">
-                <!-- Customer rows go here -->
-            </tbody>
         </table>
         </div>
     </div>
 
+    
+    <!-- Start Update Product Form -->
+    <div id="popupForm" class="containerUpForm">
+        <div class="popupFormDiv">
+            <h3>Update Customer</h3>
+            <form id="updateForm">
+                <input type="text"  placeholder="Customer Name" id="updatecustomerName">
+                <input type="email" placeholder="Customer Mail" id="updatecustomerMail">
+                <input type="password"  placeholder="Customer PassWord" id="updatecustomerPass">
+                <input type="text" placeholder="Customer Role" id="updatecustomerRole">
+                <button type="submit">Submit</button>
+                <span id="cancel"> x </span>
+            </form>
+        </div>
+    </div>
+    <!-- EndUpdate Product Form -->
+
+
     <script src="customerManage.js">
-        // function addCustomer() {
-        //     alert('Add Customer functionality coming soon!');
-        // }
-        // function editCustomer(id) {
-        //     alert(`Edit Customer with ID ${id}`);
-        // }
-        // function deleteCustomer(id) {
-        //     const confirmation = confirm('Are you sure you want to delete this customer?');
-        //     if (confirmation) {
-        //         alert(`Customer with ID ${id} deleted!`);
-        //     }
-        // }
     </script>
 </body>
 </html>
