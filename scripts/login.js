@@ -1,4 +1,3 @@
-
 let form = document.getElementById("form");
 let email = document.getElementById("email");
 let password = document.getElementById("password");
@@ -20,32 +19,53 @@ function currentUserDate(user){
 form.addEventListener("submit", async function(event) {
   event.preventDefault();
 
-  emailerror.textContent = "";
-  passworderror.textContent = "";
-
+  try {
     const response = await fetch("http://localhost:3000/users");
-
     const users = await response.json();
-
     const user = users.find((u) => u.email === email.value.trim());
 
     if (user) {
       if (user.password === password.value.trim()) {
-        currentUserDate(user)
-        console.log("local"+ currentUserDate(user))
-        if (user.role === "customer") {
-          window.location.href = "/index.html";
-        } else if (user.role === "admin") {
-          window.location.replace ( ".././Admin/admin.html");
-        }else if (user.role === "seller") {
-          window.location.href = ".././seller/seller.html";
-        }
-
-      }else {
-        passworderror.textContent="Incorrect password. Please try again."
+        currentUserDate(user);
+        
+        Swal.fire({
+          icon: 'success',
+          title: 'Welcome Back!',
+          text: 'Login successful',
+          showConfirmButton: false,
+          timer: 2000
+        }).then(() => {
+          if (user.role === "customer") {
+            window.location.href = "../index.html";
+          } else if (user.role === "admin") {
+            window.location.href = "../Admin/admin.html";
+          
+          } else if (user.role === "seller") {
+            window.location.href = "../seller/seller.html";
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Password',
+          text: 'Please check your password and try again',
+          confirmButtonColor: '#088178'
+        });
       }
     } else {
-      emailerror.textContent="No user found with this email. Please sign up first."
+      Swal.fire({
+        icon: 'warning',
+        title: 'Account Not Found',
+        text: 'No user found with this email. Please sign up first.',
+        confirmButtonColor: '#088178'
+      });
     }
-
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong! Please try again.',
+      confirmButtonColor: '#088178'
+    });
+  }
 });

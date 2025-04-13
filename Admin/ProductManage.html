@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="admin.css">
     <title>Manage Products</title>
     
@@ -28,6 +29,7 @@
                 <input type="text" placeholder="Product Title" id="productTitle">
                 <input type="text" placeholder="Product Description" id="productDescription">
                 <input type="text" placeholder="Product Price" id="productPrice">
+                <input type="text" placeholder="Product Quantity" id="productQuantity">
                 <input type="url" placeholder="Product url" id="productImage">
                 <span id="error"></span>
                 <input type="submit" value="Add Product" id="submitProduct">
@@ -43,6 +45,7 @@
                     <th>Product Price</th>
                     <th>Product Image</th>
                     <th>Status</th>
+                    <th>Product Quantity</th>
                     <th>Actions</th>
                 </tr>
         </table>
@@ -57,6 +60,7 @@
                 <input type="text" id="updateProductTitle" placeholder="Product Title">                  
                 <input type="text" id="updateProductDescription" placeholder="Product Description">
                 <input type="text" id="updateProductPrice"  placeholder="Product Price" >
+                <input type="text" id="updateProductQuantity"  placeholder="Product Quantity" >
                 <input type="url"  placeholder="Product url" id="updateProductImage">
                 <select id="updateProductStatus" >
                     <option value="approved">approved</option>
@@ -72,8 +76,8 @@
     <!-- EndUpdate Product Form -->
 
 
-    <script src="ProductManage.js">
-
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script src="ProductManage.js"></script>
 </body>
 </html>

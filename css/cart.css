@@ -61,6 +61,47 @@ nav .menu li a:hover,
 nav .menu li a.active {
     color: #088178;
 }
+
+
+/* User navigation styles */
+nav .menu .user-welcome {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    padding: 8px 15px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+nav .menu .user-welcome span {
+    color: #088178;
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+nav .menu .user-welcome i {
+    color: #088178;
+}
+
+nav .menu .sign-out {
+    background-color: #088178;
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+nav .menu .sign-out:hover {
+    background-color: #066661;
+    transform: translateY(-2px);
+}
+
+/* End of nav */
 /* End of nav */
 
 /* Start of Products */
@@ -118,7 +159,29 @@ nav .menu li a.active {
     border-radius: 4px;
 } 
 
+/* Add these styles for the quantity controls and cancel button */
+.products .product .details .tail .quantity span,
+.products .product .details .head #cancel {
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+}
 
+.products .product .details .tail .quantity span:hover {
+    color: #066661;
+    transform: scale(1.1);
+}
+
+.products .product .details .head #cancel:hover {
+    color: #ff0000;
+    transform: scale(1.1);
+}
+
+/* Optional: Add active state for better feedback */
+.products .product .details .tail .quantity span:active,
+.products .product .details .head #cancel:active {
+    transform: scale(0.95);
+}
 
 /* End of Products */
 
@@ -220,3 +283,85 @@ footer .copyright {
     border-top: 1px solid #000;
 }
 /* End of Footer */
+
+/* Add these styles to your existing cart.css */
+.checkout-btn {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    padding: 15px 30px;
+    background-color: #088178;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.checkout-btn:hover {
+    background-color: #066661;
+}
+
+.cart-summary {
+    text-align: right;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    border-top: 2px solid #088178;
+}
+
+.cart-summary h3 {
+    color: #088178;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Add these styles to cart.css */
+.empty-cart {
+    text-align: center;
+    padding: 40px 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.empty-cart i {
+    font-size: 60px;
+    color: #088178;
+    margin-bottom: 20px;
+}
+
+.empty-cart h2 {
+    color: #222;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.empty-cart p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.empty-cart .shop-now-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #088178;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.empty-cart .shop-now-btn:hover {
+    background-color: #066661;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}

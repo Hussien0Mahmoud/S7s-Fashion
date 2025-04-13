@@ -1,7 +1,7 @@
-
 let productTitle = document.querySelector("#productTitle");
 let productDescription = document.querySelector("#productDescription");
 let productPrice = document.querySelector("#productPrice");
+let productQuantity = document.querySelector("#productQuantity");
 let productImage = document.querySelector("#productImage");
 
 let submitProduct = document.querySelector("#submitProduct");
@@ -12,19 +12,49 @@ submitProduct.addEventListener("click", (e) => {
   let productTitleValue = productTitle.value.trim();
   let productDescriptionValue = productDescription.value.trim();
   let productPricevalue = productPrice.value.trim();
+  let productQuantityVale = productQuantity.value.trim();
   let productImageValue = productImage.value.trim();
 
   let isValid = true;
   if ( 
-    productTitleValue == "" || productDescriptionValue == "" || productPricevalue == "" || productImageValue == "" ) {
-    errorSpan.innerText = "Please fill all fields";
+    productTitleValue == "" || productDescriptionValue == "" || productPricevalue == "" || productImageValue == "" || productQuantityVale == "") {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Required Fields',
+      text: 'Please fill all fields',
+      confirmButtonColor: '#088178'
+    });
     e.preventDefault();
   } else {
     const addProduct = async (body) => {
-      const res = await fetch("http://localhost:3000/products", {
-        method: "POST",
-        body: JSON.stringify(body),
-      });
+      try {
+        const res = await fetch("http://localhost:3000/products", {
+          method: "POST",
+          body: JSON.stringify(body),
+        });
+        if (res.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Product added successfully',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          // Clear form
+          productTitle.value = "";
+          productDescription.value = "";
+          productPrice.value = "";
+          productImage.value = "";
+          productQuantity.value = "";
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to add product',
+          confirmButtonColor: '#088178'
+        });
+      }
     };
 
     if (isValid) {
@@ -33,7 +63,8 @@ submitProduct.addEventListener("click", (e) => {
         description: productDescription.value,
         price: productPrice.value,
         image: productImage.value,
-        status:"approved"
+        quantity: productQuantity.value,
+        status:"approved",
       };
       addProduct(product);
     }
@@ -41,11 +72,6 @@ submitProduct.addEventListener("click", (e) => {
     delButton.addEventListener("click", function () {
       targetTable.removeChild(createdTr);
     });
-
-    productTitle.value = "";
-    productDescription.value = "";
-    productPrice.value = "";
-    productImage.value = "";
   }
 });
 
@@ -66,11 +92,12 @@ fetchProducts().then((products) => {
                     <td>${product.description}</td>
                     <td>${product.price}</td>
                     <td><img src="${product.image}"/></td>
+                    <td>${product.quantity}</td>
                     <td>${product.status}</td>
                     
                     <td>
-                        <button id="delBtn" data-id="${product.id}">delet</button>
-                        <button id="upBtn"  data-id="${product.id}">update</button>
+                    <button id="upBtn"  data-id="${product.id}">Edit</button>
+                    <button id="delBtn" data-id="${product.id}">delete</button>
                     </td>
                 </tr>
         `;
@@ -94,6 +121,7 @@ async function updateProducts(id) {
   let updateProductTitle = document.querySelector("#updateProductTitle");
   let updateProductDescription = document.querySelector("#updateProductDescription");
   let updateProductPrice = document.querySelector("#updateProductPrice");
+  let updateProductQuantity = document.querySelector("#updateProductQuantity");
   let updateProductImage = document.querySelector("#updateProductImage");
   let updateProductStatus = document.querySelector("#updateProductStatus");
   
@@ -101,11 +129,12 @@ async function updateProducts(id) {
   updateProductTitle.value=product.title
   updateProductDescription.value=product.description
   updateProductPrice.value=product.price
+  updateProductQuantity.value=product.quantity
   updateProductImage.value=product.image
 
  
 
-  updateForm.addEventListener("submit", function (event) {
+  updateForm.addEventListener("submit", async function (event) {
     event.preventDefault();
     const updateProduct = async (body,id) => {
       const res = await fetch(`http://localhost:3000/products/${id}`, {
@@ -118,11 +147,37 @@ async function updateProducts(id) {
     description: updateProductDescription.value,
     price: updateProductPrice.value,
     image: updateProductImage.value,
+    quantity: updateProductQuantity.value,
     status:updateProductStatus.value
   };
-updateProduct(product,id)
-    popupForm.style.display = "none";
-    // console.log('User Info Updated:', { productTitle, productDescription, productPrice,productImage });
+  try {
+    const res = await fetch(`http://localhost:3000/products/${id}`, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(product)
+    });
+    if (res.ok) {
+      popupForm.style.display = "none";
+      Swal.fire({
+        icon: 'success',
+        title: 'Updated!',
+        text: 'Product has been updated successfully',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => {
+        window.location.reload();
+      });
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Failed to update product',
+      confirmButtonColor: '#088178'
+    });
+  }
   });
 }
 
@@ -132,16 +187,40 @@ targetTable.addEventListener("click", async (event) => {
       const productId = event.target.getAttribute("data-id"); 
       const rowTarget = event.target.closest("tr"); 
 
-      const confirmDelete = confirm("Are you sure you want to delete this product?");
-      if (!confirmDelete) return;
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#088178',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      });
 
-        await fetch(`http://localhost:3000/products/${productId}`, {
-          method: "DELETE",
-        });
-
-          rowTarget.remove();
-          console.log(`Product with ID ${productId} deleted successfully.`);
-
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`http://localhost:3000/products/${productId}`, {
+            method: "DELETE",
+          });
+          if (response.ok) {
+            rowTarget.remove();
+            Swal.fire({
+              icon: 'success',
+              title: 'Deleted!',
+              text: 'Product has been deleted.',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to delete product',
+            confirmButtonColor: '#088178'
+          });
+        }
+      }
     }
 
     if (event.target && event.target.id === "upBtn") {

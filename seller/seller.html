@@ -8,15 +8,23 @@
     
 </head>
 <body>
-    <nav>
+    <!-- <nav>
         <h1><a href="seller.html">Seller Dashboard</a> </h1>
         <ul class="menu ">
-            <!-- <li><a href="ProductManage.html"class="active" >Manage Products</a></li>
-            <li><a href="orderManage.html" >Manage Orders</a></li>
-            <li><a href="customerManage.html" >Manage Customers</a></li> -->
-            <li class="active"><a href="../index.html">Seller Page</a></li>
+            <li class="active"><a href="../index.html">Home Page</a></li>
         </ul>
-    </nav>
+    </nav> -->
+    <nav id="header">
+        <a href="#">S7S Fashion</a>
+  
+        <ul class="menu">
+          <li><a href="../index.html" class="active">Home</a></li>
+          <!-- <li><a href="./html/shop.html">Shop</a></li>
+          <li><a href="html/cart.html">Cart</a></li> -->
+          <li id="login"><a href="./html/login.html">Login</a></li>
+          <li id="signUp"><a href="./html/signUp.html">Sign Up</a></li> 
+        </ul>
+      </nav>
     <div class="content">
         <div class="container">
             <div class="heading">
@@ -29,6 +37,7 @@
                 <input type="text" placeholder="Product Description" id="productDescription">
                 <input type="text" placeholder="Product Price" id="productPrice">
                 <input type="url" placeholder="Product url" id="productImage">
+                <input type="number" placeholder="Product Quantity" id="productQuantity" min="0">
                 <span id="error"></span>
                 <input type="submit" value="Add Product" id="submitProduct">
                <!-- </form> -->
@@ -57,6 +66,7 @@
                 <input type="text" id="updateProductDescription" placeholder="Product Description">
                 <input type="text" id="updateProductPrice"  placeholder="Product Price" >
                 <input type="url"  placeholder="Product url" id="updateProductImage">
+                <input type="number" placeholder="Product Quantity" id="updateProductQuantity" min="0">
                 <button type="submit">Submit</button>
                 <span id="cancel"> x </span>
             </form>
@@ -65,8 +75,10 @@
     <!-- EndUpdate Product Form -->
 
 
-    <script src="seller.js">
+  
+    <script src="../scripts/currentUser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    </script>
+    <script src="seller.js"></script>
 </body>
 </html>

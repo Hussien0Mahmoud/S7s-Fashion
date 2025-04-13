@@ -64,6 +64,46 @@ nav .menu li a.active {
     color: #088178;
 }
 
+
+/* User navigation styles */
+nav .menu .user-welcome {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    padding: 8px 15px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+nav .menu .user-welcome span {
+    color: #088178;
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+nav .menu .user-welcome i {
+    color: #088178;
+}
+
+nav .menu .sign-out {
+    background-color: #088178;
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+nav .menu .sign-out:hover {
+    background-color: #066661;
+    transform: translateY(-2px);
+}
+
+/* End of nav */
 /* End of nav */
 
 

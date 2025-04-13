@@ -1,10 +1,12 @@
+admin.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="admin.css" />
-    <title>E-commerce Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Admin Dashboard</title>
   </head>
  
   <body>
@@ -18,35 +20,101 @@
       </ul>
     </nav>
 
-    <!-- <div class="sidebar">
-        <ul>
-            <li><a href="ProductManage.html" style="color: white; text-decoration: none;">Manage Products</a></li>
-            <li><a href="sellerManage.html" style="color: white; text-decoration: none;">Manage Sellers</a></li>
-            <li><a href="customerManage.html" style="color: white; text-decoration: none;">Manage Customers</a></li>
-        </ul>
-    </div> -->
+    <div class="content">
+      <div class="admin-info">
+        <div class="admin-card">
+          <i class="fas fa-user-shield"></i>
+          <h2>Admin Profile</h2>
+          <div class="info-row">
+            <span>Username:</span>
+            <p id="adminName"></p>
+          </div>
+          <div class="info-row">
+            <span>Email:</span>
+            <p id="adminEmail"></p>
+          </div>
+          <div class="info-row">
+            <span>Role:</span>
+            <p id="adminRole"></p>
+          </div>
+        </div>
 
-    <!-- <div class="content">
-        
-    </div> -->
+        <div class="stats-container">
+          <div class="stat-card">
+            <i class="fas fa-box"></i>
+            <h3>Total Products</h3>
+            <p id="totalProducts">0</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-shopping-cart"></i>
+            <h3>Total Orders</h3>
+            <p id="totalOrders">0</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-users"></i>
+            <h3>Total Customers</h3>
+            <p id="totalCustomers">0</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <script>
-
-        let currentUserString = localStorage.getItem("currentUser");
-        const currentUser = JSON.parse(currentUserString);
+      let currentUserString = localStorage.getItem("currentUser");
+      const currentUser = JSON.parse(currentUserString);
     
-        function checkAuthority(allowedRoles) {
-          if (currentUserString) {
-            return allowedRoles.includes(currentUser.userrole);
-          }
-          return false; 
+      function checkAuthority(allowedRoles) {
+        if (currentUserString) {
+          return allowedRoles.includes(currentUser.userrole);
         }
-        // console.log(currentUserString)
-        
-        if(!checkAuthority(["admin"])){
+        return false; 
+      }
+      
+      if(!checkAuthority(["admin"])){
+        Swal.fire({
+          icon: 'error',
+          title: 'Access Denied',
+          text: 'You must be an admin to access this page',
+          confirmButtonColor: '#088178'
+        }).then(() => {
           window.location.href = "../index.html";
+        });
+      }
+
+      // Display admin info
+      document.getElementById('adminName').textContent = currentUser.username;
+      document.getElementById('adminEmail').textContent = currentUser.usermail;
+      document.getElementById('adminRole').textContent = currentUser.userrole;
+
+      // Fetch statistics
+      async function fetchStats() {
+        try {
+          const [products, orders, users] = await Promise.all([
+            fetch('http://localhost:3000/products').then(res => res.json()),
+            fetch('http://localhost:3000/orders').then(res => res.json()),
+            fetch('http://localhost:3000/users').then(res => res.json())
+          ]);
+
+          // Count only users with role "customer"
+          const customerCount = users.filter(user => user.role && user.role.toLowerCase() === 'customer').length;
+
+          document.getElementById('totalProducts').textContent = products.length;
+          document.getElementById('totalOrders').textContent = orders.length;
+          document.getElementById('totalCustomers').textContent = customerCount;
+
+        } catch (error) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to fetch statistics',
+            confirmButtonColor: '#088178'
+          });
         }
-        
-      </script>
+      }
+
+      fetchStats();
+    </script>
+    <script src="../scripts/currentUser.js"></script>
   </body>
 </html>

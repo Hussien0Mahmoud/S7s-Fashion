@@ -62,6 +62,47 @@ nav .menu li a:hover,
 nav .menu li a.active {
     color: #088178;
 }
+
+
+/* User navigation styles */
+nav .menu .user-welcome {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    padding: 8px 15px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+nav .menu .user-welcome span {
+    color: #088178;
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+nav .menu .user-welcome i {
+    color: #088178;
+}
+
+nav .menu .sign-out {
+    background-color: #088178;
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+nav .menu .sign-out:hover {
+    background-color: #066661;
+    transform: translateY(-2px);
+}
+
+/* End of nav */
 /* End Of Nav-Bar */
 
 .content {
@@ -122,6 +163,20 @@ nav .menu li a.active {
 .input-group span {
     color: red;
 }
+
+.input-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.input-group input[type="number"]:focus {
+    outline: none;
+    border-color: #088178;
+}
 /* End of Add */
 
 table {
@@ -152,13 +207,20 @@ table td button {
     border-radius: 5px;
     cursor: pointer;
 }
+table td #delBtn {
+    background-color: red;
+}
 
 table td  img{
     width: 70px;
     height: 50px;
 }
 
-
+table td:nth-child(6) {
+    text-align: center;
+    font-weight: 600;
+    color: #088178;
+}
 
 /* start of Update Form*/
 .containerUpForm {
@@ -193,6 +255,20 @@ table td  img{
     font-size: 14px;
     border: 1px solid #093a37;
     border-radius: 4px;
+}
+
+.popupFormDiv input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.popupFormDiv input[type="number"]:focus {
+    outline: none;
+    border-color: #088178;
 }
 
 .containerUpForm button {

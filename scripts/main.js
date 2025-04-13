@@ -1,5 +1,5 @@
-let ProductContainer = document.querySelector(".product-container");
 let ProductCards = document.querySelector(".cards");
+let shopNowBtn = document.querySelector("header button");
 
 async function fetchProducts() {
   const response = await fetch("http://localhost:3000/products");
@@ -7,10 +7,17 @@ async function fetchProducts() {
   return products;
 }
 
+// Display only 6 products on home page
 fetchProducts()
   .then((products) => {
-    products.forEach((product) => {
-      // Render the product cards
+    // Clear existing card
+    ProductCards.innerHTML = "";
+    
+    // Get first 6 products with status "approved"
+    const approvedProducts = products.filter(product => product.status === "approved");
+    const displayProducts = approvedProducts.slice(0, 4);
+
+    displayProducts.forEach((product) => {
       ProductCards.innerHTML += `
         <div class="card">
             <img src="${product.image}" alt="product Image" />
@@ -27,7 +34,6 @@ fetchProducts()
           </div>
         `;
     });
-
 
     // Add event listeners to all "Add To Cart" buttons
     const addToCartButtons = document.querySelectorAll(".add-to-cart");
@@ -58,23 +64,10 @@ function addToCart(product) {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  
-  Swal.fire({
-    icon: 'success',
-    title: 'Added to Cart!',
-    text: 'Product has been added to your cart',
-    showConfirmButton: false,
-    timer: 1500,
-    position: 'top-end',
-    toast: true
-  });
+  alert("Product added to cart!");
 }
 
-
-
-
-
-
-
-
-
+// Add click handler for "Shop Now" button
+shopNowBtn.addEventListener("click", () => {
+  window.location.href = "./html/shop.html";
+});
